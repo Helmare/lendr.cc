@@ -1,5 +1,7 @@
+<script setup>
+import LoanOverview from "../components/LoanOverview.vue";
+</script>
+
 <template>
-  <main>
-    <h1>This is the dashboard.</h1>
-  </main>
+  <LoanOverview />
 </template>
