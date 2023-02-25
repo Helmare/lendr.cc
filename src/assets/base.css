@@ -6,6 +6,9 @@
   position: relative;
   font-weight: normal;
 }
+button, input, select, textarea {
+  font: inherit;
+}
 
 body {
   min-height: 100vh;
