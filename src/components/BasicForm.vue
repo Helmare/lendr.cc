@@ -7,7 +7,7 @@
     <form class="basic">
       <slot></slot>
       <br>
-      <input type="submit" :value="this.$props['action']">
+      <input type="submit" :value="props.action">
     </form>
   </div>
 </template>

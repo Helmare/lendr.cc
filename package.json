@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "npx http-server -P http://0.0.0.0:${PORT}? ./dist",
+    "local": "npx http-server ./dist",
     "dev": "vite --host",
     "build": "vite build",
     "preview": "vite preview"
