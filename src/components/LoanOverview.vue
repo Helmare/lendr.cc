@@ -1,7 +1,15 @@
+<script setup>
+  const props = defineProps(['total', 'interest'])
+
+  function toUSD(value) {
+    return (value || 0).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+  }
+</script>
+
 <template>
   <div class="loan-overview">
-    <p class="total">$1,770</p>
-    <p class="next-interest">Upcoming Interest: $0.00</p>
+    <p class="total">{{ toUSD(props.total) }}</p>
+    <p class="next-interest">Upcoming Interest: {{ toUSD(props.interest) }}</p>
   </div>
 </template>
 

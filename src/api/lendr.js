@@ -10,9 +10,9 @@
  * A class for api.lendr.cc requests.
  */
 class LendrClient {
-  constructor(loginId, endpoint) {
+  constructor(endpoint) {
     /** @type {string} */
-    this.loginId = loginId || localStorage.getItem('loginId');
+    this.loginId = localStorage.getItem('loginId');
     /** @type {string} */
     this.endpoint = endpoint || 'https://api.lendr.cc/v1'
   }
@@ -29,22 +29,30 @@ class LendrClient {
    * Sends a GET request to the server.
    * 
    * @param {string} path 
-   * @param {boolean} requireAuth 
+   * @param {object} options
+   * @param {boolean} [options.requireAuth]
    * @returns {Promise<Response>}
    */
   async get(path, options = {}) {
     /** @type {RequestInit} */
     let init = {
-      method: options.method || 'POST',
-      headers: {},
-      body: JSON.stringify(data)
+      method: 'GET',
+      headers: {}
     };
     if (options.requireAuth) {
       init.headers['Authorization'] = `Bearer ${this.loginId}`;
     }
 
     // Call fetch.
-    return fetch(`${this.endpoint}${path}`, init);
+    const res = await fetch(`${this.endpoint}${path}`, init);
+
+    // Logout user if user isn't found.
+    if (res.status == 401 && options.requireAuth) {
+      this._clearLogin();
+    }
+
+    // Return result.
+    return res;
   }
   /**
    * Sends a POST request to the server.
@@ -68,8 +76,16 @@ class LendrClient {
       init.headers['Authorization'] = `Bearer ${this.loginId}`;
     }
 
-    // Call fetch
-    return fetch(`${this.endpoint}${path}`, init);
+    // Call fetch.
+    const res = await fetch(`${this.endpoint}${path}`, init);
+
+    // Logout user if user isn't found.
+    if (res.status == 401 && options.requireAuth) {
+      this._clearLogin();
+    }
+
+    // Return result.
+    return res;
   }
 
   /**
@@ -89,8 +105,7 @@ class LendrClient {
      */
     const data = await response.json();
     if (data._id) {
-      this.loginId = data._id;
-      localStorage.setItem('loginId', this.loginId);
+      this._setLogin(data._id);
     }
     return data;
   }
@@ -102,10 +117,23 @@ class LendrClient {
       requireAuth: true
     });
 
-    this.loginId = undefined;
-    localStorage.removeItem('loginId');
+    this._clearLogin();
 
     return res;
+  }
+  /**
+   * Sets the loginId and localStorage.
+   */
+  _setLogin(loginId) {
+    this.loginId = loginId;
+    localStorage.setItem('loginId', loginId);
+  }
+  /**
+   * Resets loginId and removes from localStorage.
+   */
+  _clearLogin() {
+    this.loginId = undefined;
+    localStorage.removeItem('loginId');
   }
 }
 
