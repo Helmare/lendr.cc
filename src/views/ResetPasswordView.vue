@@ -1,7 +1,21 @@
 <script setup>
+  import { useRouter, useRoute } from 'vue-router';
   import BasicForm from '../components/BasicForm.vue';
+
+  const router = useRouter();
+  const route = useRoute();
+  const resetFlag = route.query.f;
+
+  /**
+   * Resets the password using the reset flag.
+   */
   function reset() {
     
+  }
+
+  // Redirect if reset flag isn't valid.
+  if (!resetFlag) {
+    router.push({ path: '/login' });
   }
 </script>
 
