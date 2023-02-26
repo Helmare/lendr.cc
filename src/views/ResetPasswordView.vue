@@ -1,10 +1,14 @@
 <script setup>
+  import { inject } from 'vue';
   import { useRouter, useRoute } from 'vue-router';
   import BasicForm from '../components/BasicForm.vue';
 
   const router = useRouter();
   const route = useRoute();
   const resetFlag = route.query.f;
+
+  /** @type {import('../api/lendr').default} */
+  const lendr = inject('lendrClient');
 
   /**
    * Resets the password using the reset flag.

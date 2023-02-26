@@ -18,6 +18,14 @@ class LendrClient {
   }
 
   /**
+   * A shallow check to see if a user is logged in.
+   * @returns {boolean}
+   */
+  isLoggedIn() {
+    return this.loginId != undefined;
+  }
+
+  /**
    * Sends a GET request to the server.
    * 
    * @param {string} path 
@@ -69,7 +77,6 @@ class LendrClient {
    * 
    * @param {string} username
    * @param {string} password
-   * @returns {Promise<LoginResponse>} An object with the login state.
    */
   async login(username, password) {
     const response = await this.post('/member/login', {
@@ -86,6 +93,19 @@ class LendrClient {
       localStorage.setItem('loginId', this.loginId);
     }
     return data;
+  }
+  /**
+   * Attempts to logout.
+   */
+  async logout() {
+    const res = await this.post('/member/logout', {}, {
+      requireAuth: true
+    });
+
+    this.loginId = undefined;
+    localStorage.removeItem('loginId');
+
+    return res;
   }
 }
 

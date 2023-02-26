@@ -1,11 +1,26 @@
 <script setup>
-  import { RouterLink, RouterView } from 'vue-router'
+  import { provide, reactive } from 'vue';
+  import { useRouter, RouterLink, RouterView } from 'vue-router'
+  import LendrClient from './api/lendr';
+
+  const router = useRouter();
+
+  const lendr = reactive(new LendrClient());
+  provide('lendrClient', lendr);
+
+  /**
+   * Logs out on Logout click.
+   */
+  async function logout() {
+    await lendr.logout();
+    router.push('/login');
+  }
 </script>
 
 <template>
   <nav>
     <span class="logo">lender.cc</span>
-    <button class="right">Logout</button>
+    <button class="right" v-show="lendr.loginId != undefined" @click="logout">Logout</button>
   </nav>
   <RouterView />
 </template>

@@ -1,16 +1,16 @@
 <script setup>
   import BasicForm from '../components/BasicForm.vue';
 
-  import { ref } from 'vue';
+  import { ref, inject } from 'vue';
   import { useRouter } from 'vue-router';
-  import LendrClient from '../api/lendr';
 
-  const lendr = new LendrClient();
+  /** @type {import('../api/lendr').default} */
+  const lendr = inject('lendrClient');
   const router = useRouter();
 
-  // if (lendr.loginId) {
-  //   router.push('/');
-  // }
+  if (lendr.loginId) {
+    router.push('/');
+  }
 
   const username = ref('');
   const password = ref('');
