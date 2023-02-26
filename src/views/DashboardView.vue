@@ -8,9 +8,9 @@
   const router = useRouter();
 
   const userdata = reactive({
+    loaded: false,
     loanTotal: 0,
-    upcomingInterest: 0,
-    activity: []
+    upcomingInterest: 0
   });
 
   if (!lendr.isLoggedIn()) {
@@ -25,11 +25,17 @@
     }).then(data => {
       userdata.loanTotal = data.total;
       userdata.upcomingInterest = data.upcomingInterest;
+      userdata.loaded = true
       console.log('loaded data.');
     });
   }
 </script>
 
 <template>
-  <LoanOverview :total="userdata.loanTotal" :interest="userdata.upcomingInterest" />
+  <div v-if="userdata.loaded">
+    <LoanOverview :total="userdata.loanTotal" :interest="userdata.upcomingInterest" />
+  </div>
+  <div v-else>
+    <p>Gathering paperwork, please hold...</p>
+  </div>
 </template>

@@ -15,7 +15,7 @@
   const username = ref('');
   const password = ref('');
 
-  async function login(e) {
+  async function login() {
     const res = await lendr.login(username.value, password.value);
     if (res._id) {
       // SUCCESS!
@@ -35,7 +35,7 @@
 <template>
   <BasicForm action="Login" @submit.prevent="login">
     <label>Username</label>
-    <input v-model="username" type="text" placeholder="1234" />
+    <input v-model="username" type="text" placeholder="bob" />
     <label>Password</label>
     <input v-model="password" type="password" placeholder="1234" />
   </BasicForm>
