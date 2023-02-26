@@ -10,7 +10,7 @@
    * Resets the password using the reset flag.
    */
   function reset() {
-    
+    console.log(resetFlag);
   }
 
   // Redirect if reset flag isn't valid.
