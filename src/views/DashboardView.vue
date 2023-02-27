@@ -5,10 +5,11 @@
 
   /** @type {import('../api/lendr').default} */
   const lendr = inject('lendrClient');
+  /** @type {import('vue').Ref<boolean>} */
+  const loading = inject('loading');
   const router = useRouter();
 
   const userdata = reactive({
-    loaded: false,
     loanTotal: 0,
     upcomingInterest: 0
   });
@@ -17,7 +18,9 @@
     router.push('/login');
   }
   else {
+    loading.value = true;
     lendr.get('/member/me/loans', { requireAuth: true }).then(res => {
+      loading.value = false;
       if (res.status == 401) {
         router.push('/login');
       }
@@ -32,10 +35,7 @@
 </script>
 
 <template>
-  <div v-if="userdata.loaded">
+  <div v-if="!loading">
     <LoanOverview :total="userdata.loanTotal" :interest="userdata.upcomingInterest" />
-  </div>
-  <div v-else>
-    <p>Gathering paperwork, please hold...</p>
   </div>
 </template>

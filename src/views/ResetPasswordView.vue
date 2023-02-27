@@ -12,18 +12,22 @@
 
   /** @type {import('../api/lendr').default} */
   const lendr = inject('lendrClient');
+  /** @type {import('vue').Ref<boolean>} */
+  const loading = inject('loading');
 
   /**
    * Resets the password using the reset flag.
    */
   async function reset() {
     if (password0.value != password1.value) return;
-    
+    loading.value = true;
+
     const res = await lendr.post('/member/reset-password', {
       resetFlag: resetFlag,
       password: password0.value
     }, { method: 'PATCH' });
 
+    loading.value = false;
     if (res.status == 200) {
       router.push('/login');
     }
