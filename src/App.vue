@@ -19,7 +19,7 @@
 
 <template>
   <nav>
-    <span class="logo">lender.cc</span>
+    <span class="logo">lendr.cc</span>
     <button class="right" v-show="lendr.loginId != undefined" @click="logout">Logout</button>
   </nav>
   <RouterView />
