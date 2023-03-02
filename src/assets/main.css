@@ -5,5 +5,36 @@
   min-height: 100vh;
   margin: 0 auto;
 
-  background-color: #eee;
+  background-color: var(--color-light-soft);
+}
+
+input {
+  outline: none;
+  border-radius: 0;
+  border: 1px solid var(--color-dark);
+  padding: 0.5em;
+}
+button, input[type="submit"] {
+  color: var(--color-light);
+  background-color: var(--color-dark);
+  transition: background-color 150ms;
+
+  border: none;
+  border-radius: 0.75em;
+}
+button:hover, input[type="submit"]:hover {
+  background-color: var(--color-dark-soft);
+}
+
+.primary {
+  background-color: var(--color-primary) !important;
+}
+.primary:hover {
+  background-color: var(--color-primary-soft) !important;
+}
+.danger {
+  background-color: var(--color-danger) !important;
+}
+.danger:hover {
+  background-color: var(--color-danger-soft) !important;
 }

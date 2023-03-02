@@ -7,7 +7,7 @@
     <form class="basic">
       <slot></slot>
       <br>
-      <input type="submit" :value="props.action">
+      <input type="submit" class="primary" :value="props.action">
     </form>
   </div>
 </template>
@@ -35,21 +35,6 @@
   form.basic label {
     text-align: right;
     line-height: 3em;
-  }
-  form.basic input {
-    outline: none;
-    border-radius: 0;
-    border: 1px solid black;
-    padding: 0.5em;
-  }
-  form.basic input[type="submit"] {
-    background-color: black;
-    transition: background-color 150ms;
-    color: white;
-    border: none;
-  }
-  form.basic input[type="submit"]:hover {
-    background-color: #333;
   }
 
   @media only screen and (max-width: 768px) {

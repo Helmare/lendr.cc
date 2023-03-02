@@ -48,7 +48,7 @@
   .loan-overview .total {
     font-size: 10em;
     font-weight: 600;
-    color: #C68;
+    color: var(--color-danger);
   }
   .loan-overview .next-interest {
     font-size: 2em;

@@ -33,26 +33,29 @@
 
 <style>
   nav {
-    background-color: black;
+    background-color: var(--color-dark);
     height: 5em;
   }
 
-  nav a, nav span, nav button {
+  nav a, nav span {
     display: inline-block;
     font-size: 2em;
     line-height: 2.5em;
     padding: 0em 1em;
+    transition: background-color 150ms;
 
-    font-family: inherit;
-
-    color: white;
-    border: none;
-    outline: none;
-    background: none;
+    color: var(--color-light);
     text-decoration: none;
   }
-  nav a:hover, nav button:hover {
-    background-color: rgba(255, 255, 255, 0.5);
+  nav a:hover {
+    background-color: var(--color-dark-soft);
+  }
+
+  nav button {
+    font-size: 2em;
+    line-height: 2.5em;
+    padding: 0em 1em;
+    border-radius: 0;
   }
 
   .logo {
@@ -65,7 +68,7 @@
   .loading {
     position: absolute;
     width: 0%;
-    background: linear-gradient(to left, #68C, #86C);
+    background: linear-gradient(to left, var(--color-primary), var(--color-danger));
     height: 0.8em;
     left: 0px;
     z-index: 100;
