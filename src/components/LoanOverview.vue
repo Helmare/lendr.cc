@@ -24,7 +24,8 @@
       opts.minimumFractionDigits = 2;
       opts.maximumFractionDigits = 2;
     }
-    return `\$${(value || 0).toLocaleString('en-US', opts)}`;
+
+    return `\$${(value || 0).toLocaleString('en-US', opts)}`
   }
 </script>
 
@@ -48,10 +49,11 @@
   .loan-overview .total {
     font-size: 10em;
     font-weight: 600;
-    color: var(--color-danger);
+    color: var(--color-light);
   }
   .loan-overview .next-interest {
     font-size: 2em;
-    opacity: 0.5;
+    opacity: 0.75;
+    color: var(--color-light);
   }
 </style>

@@ -1,14 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
+
 :root {
   --color-light: white;
   --color-light-soft: #e5e5e5;
   --color-dark-soft: #323232;
   --color-dark: black;
 
-  --color-primary: #5aa9f7;
-  --color-primary-soft: #4887c5;
+  --color-primary: #2990F4;
+  --color-primary-soft: #53a6f6;
 
-  --color-danger: #f75a5a;
-  --color-danger-soft: #c54848;
+  --color-danger: #9029f4;
+  --color-danger-soft: #a653f6;
 }
 
 *,
@@ -29,7 +31,7 @@ body {
   color: var(--color-dark);
   background: var(--color-light);
 
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Source Sans Pro', sans-serif;
   font-size: calc(min(0.3vw, 3.84px) + 0.5rem);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
