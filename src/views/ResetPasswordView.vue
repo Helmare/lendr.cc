@@ -1,6 +1,7 @@
 <script setup>
   import { inject, ref } from 'vue';
   import { useRouter, useRoute } from 'vue-router';
+  import LendrClient from '../api/lendr';
   import BasicForm from '../components/BasicForm.vue';
 
   const router = useRouter();
@@ -10,8 +11,7 @@
   const password0 = ref('');
   const password1 = ref('');
 
-  /** @type {import('../api/lendr').default} */
-  const lendr = inject('lendrClient');
+  const lendr = new LendrClient();
   /** @type {import('vue').Ref<boolean>} */
   const loading = inject('loading');
 

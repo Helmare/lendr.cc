@@ -1,18 +1,14 @@
 <script setup>
-  import BasicForm from '../components/BasicForm.vue';
-
   import { ref, inject } from 'vue';
   import { useRouter } from 'vue-router';
+  import LendrClient from '../api/lendr';
+  import BasicForm from '../components/BasicForm.vue';
 
-  /** @type {import('../api/lendr').default} */
-  const lendr = inject('lendrClient');
   /** @type {import('vue').Ref<boolean>} */
   const loading = inject('loading');
-  const router = useRouter();
 
-  if (lendr.loginId) {
-    router.push('/');
-  }
+  const lendr = new LendrClient();
+  const router = useRouter();
 
   const username = ref('');
   const password = ref('');
@@ -22,11 +18,11 @@
     const res = await lendr.login(username.value, password.value);
     if (res._id) {
       // SUCCESS!
-      router.push('/');
+      await router.push('/');
     }
     else if (res.resetFlag) {
       // Reset password
-      router.push(`/login/reset?f=${res.resetFlag}`);
+      await router.push(`/login/reset?f=${res.resetFlag}`);
       loading.value = false;
     }
     else {

@@ -14,7 +14,7 @@ class LendrClient {
     /** @type {string} */
     this.loginId = localStorage.getItem('loginId');
     /** @type {string} */
-    this.endpoint = endpoint || 'https://api.lendr.cc/v1'
+    this.endpoint = endpoint || 'https://api.lendr.cc/v1';
   }
 
   /**
@@ -31,7 +31,7 @@ class LendrClient {
    * @param {string} path 
    * @param {object} options
    * @param {boolean} [options.requireAuth]
-   * @returns {Promise<Response>}
+   * @returns {Promise<Response|null>}
    */
   async get(path, options = {}) {
     /** @type {RequestInit} */
@@ -39,8 +39,11 @@ class LendrClient {
       method: 'GET',
       headers: {}
     };
-    if (options.requireAuth) {
+    if (options.requireAuth && this.isLoggedIn()) {
       init.headers['Authorization'] = `Bearer ${this.loginId}`;
+    }
+    else {
+      return null;
     }
 
     // Call fetch.

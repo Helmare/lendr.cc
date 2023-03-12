@@ -1,15 +1,14 @@
 <script setup>
-  import { ref, provide, reactive } from 'vue';
-  import { useRouter, RouterLink, RouterView } from 'vue-router'
+  import { ref, reactive, provide } from 'vue';
+  import { useRouter, RouterView } from 'vue-router'
   import LendrClient from './api/lendr';
 
-  const router = useRouter();
-
-  const loading = ref(false);
+  // Setup global variables.
+  const loading = ref(0);
   provide('loading', loading);
-
-  const lendr = reactive(new LendrClient());
-  provide('lendrClient', lendr);
+  
+  const lendr = new LendrClient();
+  const router = useRouter();
 
   /**
    * Logs out on Logout click.
