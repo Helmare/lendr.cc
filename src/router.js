@@ -48,6 +48,9 @@ router.beforeEach(async (to, from) => {
     if (to.name == 'login' || to.name == 'reset') {
       return { name: from.name || 'dashboard' }
     }
+    else if (me.role != 'admin' && to.meta.adminOnly) {
+      return { name: from.name || 'dashboard' }
+    }
   }
   else {
     if (to.name != 'login' && (to.name != 'reset' && !to.query.f)) {
