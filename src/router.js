@@ -9,7 +9,8 @@ const router = createRouter({
     {
       path: '/',
       name: 'dashboard',
-      component: DashboardView
+      component: DashboardView,
+      meta: { memberOnly: true }
     },
     {
       path: '/login',
@@ -25,7 +26,12 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('./views/ResetPasswordView.vue')
+      component: () => import('./views/ResetPasswordView.vue'),
+      beforeEnter: (to, from) => {
+        if (!to.query.f) {
+          return { name: 'login' }
+        }
+      }
     }
   ]
 });
@@ -45,17 +51,12 @@ router.beforeEach(async (to, from) => {
 
   // Block and redirect.
   if (me) {
-    if (to.name == 'login' || to.name == 'reset') {
-      return { name: from.name || 'dashboard' }
-    }
-    else if (me.role != 'admin' && to.meta.adminOnly) {
+    if (!to.meta.memberOnly || (me.role == 'member' && to.meta.adminOnly)) {
       return { name: from.name || 'dashboard' }
     }
   }
-  else {
-    if (to.name != 'login' && (to.name != 'reset' && !to.query.f)) {
-      return { name: 'login' }
-    }
+  else if (to.meta.memberOnly) {
+    return { name: 'login' }
   }
 });
 
