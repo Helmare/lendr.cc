@@ -1,12 +1,14 @@
 <script setup>
-  import { ref, reactive, provide } from 'vue';
-  import { useRouter, RouterView } from 'vue-router'
+  import { ref, provide } from 'vue';
+  import { useRouter, RouterView } from 'vue-router';
+  import { useMemberStore } from './stores';
   import LendrClient from './api/lendr';
 
   // Setup global variables.
-  const loading = ref(0);
+  const loading = ref(false);
   provide('loading', loading);
   
+  const store = useMemberStore();
   const lendr = new LendrClient();
   const router = useRouter();
 
@@ -24,7 +26,7 @@
 <template>
   <nav>
     <span class="logo">lendr.cc</span>
-    <button class="right" v-show="lendr.loginId != undefined" @click="logout">Logout</button>
+    <button class="right" v-show="store.me" @click="logout">Logout</button>
   </nav>
   <div v-show="loading" class="loading"></div>
   <RouterView />

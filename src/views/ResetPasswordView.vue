@@ -8,6 +8,7 @@
   const route = useRoute();
   const resetFlag = route.query.f;
 
+  const error = ref('');
   const password0 = ref('');
   const password1 = ref('');
 
@@ -32,20 +33,15 @@
       router.push('/login');
     }
     else {
-      // FAILED!
+      error.value = 'Failed to reset password.';
     }
-  }
-
-  // Redirect if reset flag isn't valid.
-  if (!resetFlag) {
-    router.push('/login');
   }
 </script>
 
 <template>
   <BasicForm action="Reset Password" @submit.prevent="reset">
-    <div v-show="password0 != password1"></div>
-    <div v-show="password0 != password1" style="line-height: 4em; color: red">Passwords do not match.</div>
+    <span v-show="error" style="color: red">{{ error }}</span>
+    <span v-show="password0 && password1 && password0 != password1" style="color: red">Passwords do not match.</span>
     <label>New Password</label>
     <input v-model="password0" type="password" placeholder="1234" />
     <label>Retype Password</label>
