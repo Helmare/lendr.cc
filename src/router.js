@@ -32,6 +32,12 @@ const router = createRouter({
           return { name: 'login' }
         }
       }
+    },
+    {
+      path: '/admin/payment',
+      name: 'payment',
+      component: () => import('./views/PaymentView.vue'),
+      meta: { adminOnly: true }
     }
   ]
 });
@@ -51,8 +57,9 @@ router.beforeEach(async (to, from) => {
 
   // Block and redirect.
   if (me) {
-    if (!to.meta.memberOnly || (me.role == 'member' && to.meta.adminOnly)) {
-      return { name: from.name || 'dashboard' }
+    console.log(to.meta, me);
+    if (!(to.meta.memberOnly || to.meta.adminOnly) || (to.meta.adminOnly && me.role != 'admin')) {
+      return { name: 'dashboard' }
     }
   }
   else if (to.meta.memberOnly) {

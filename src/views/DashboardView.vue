@@ -43,8 +43,8 @@
   </section>
   <section id="activity">
     <div v-if="loading" style="text-align: center">Loading...</div>
-    <div v-else v-for="a in userdata.activity">
-      <Record :memo="a.memo" :amount="a.amount" :date="a.createdAt" />
+    <div v-else>
+      <Record v-for="a in userdata.activity" :memo="a.memo" :amount="a.amount" :date="a.createdAt" />
     </div>
   </section>
 </template>

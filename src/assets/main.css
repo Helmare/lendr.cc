@@ -8,11 +8,12 @@
   background-color: var(--color-light-soft);
 }
 
-input {
+input, select {
   outline: none;
   border-radius: 0;
   border: 1px solid var(--color-dark);
   padding: 0.5em;
+  background-color: var(--color-light);
 }
 button, input[type="submit"] {
   color: var(--color-light);

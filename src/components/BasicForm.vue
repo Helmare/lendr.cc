@@ -48,7 +48,7 @@
   }
   form.basic span, form.basic div {
     grid-column: 2;
-    line-height: 4em;
+    line-height: 3em;
   }
 
   @media only screen and (max-width: 768px) {
