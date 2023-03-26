@@ -15,18 +15,26 @@ input, select {
   padding: 0.5em;
   background-color: var(--color-light);
 }
-button, input[type="submit"] {
+a.button, button, input[type="submit"] {
   color: var(--color-light);
   background-color: var(--color-dark);
   transition: background-color 150ms;
 
   border: none;
   border-radius: 0.75em;
+  text-decoration: none;
+  cursor: default;
 }
+
+a.button, button {
+  padding: 0.75em;
+  border-radius: 0.5em;
+}
+
 button:disabled, input[type="submit"]:disabled {
   opacity: 0.5;
 }
-button:hover, input[type="submit"]:hover {
+a.button:hover, button:hover, input[type="submit"]:hover {
   background-color: var(--color-dark-soft);
 }
 

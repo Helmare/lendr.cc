@@ -7,6 +7,6 @@
 
 <template>
   <div>
-    <MemberOverview :member-id="route.params.id" />
+    <MemberOverview admin :member-id="route.params.id" />
   </div>
 </template>
