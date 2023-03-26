@@ -1,5 +1,6 @@
 <script setup>
   import { ref, inject } from 'vue';
+  import { useRoute } from 'vue-router';
   import LendrClient from '../../api/lendr';
   import BasicForm from '../../components/BasicForm.vue';
   import MoneyInput from '../../components/MoneyInput.vue';
@@ -8,11 +9,12 @@
   const loading = inject('loading');
 
   const lendr = new LendrClient();
+  const route = useRoute();
 
   const disabled = ref(false);
   const success = ref(false);
   const error = ref('');
-  const memberId = ref('');
+  const memberId = ref(route.query.m || '');
   const amount = ref(0);
 
   // Grab all borrowers

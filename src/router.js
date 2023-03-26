@@ -34,15 +34,15 @@ const router = createRouter({
       }
     },
     {
-      path: '/member/:id',
-      name: 'member',
-      component: () => import('./views/admin/MemberView.vue'),
+      path: '/member/payment',
+      name: 'payment',
+      component: () => import('./views/admin/PaymentView.vue'),
       meta: { adminOnly: true }
     },
     {
-      path: '/admin/payment',
-      name: 'payment',
-      component: () => import('./views/admin/PaymentView.vue'),
+      path: '/member/:id',
+      name: 'member',
+      component: () => import('./views/admin/MemberView.vue'),
       meta: { adminOnly: true }
     },
     {

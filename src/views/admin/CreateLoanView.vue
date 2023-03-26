@@ -15,7 +15,7 @@
   const disabled = ref(false);
   const success = ref(false);
   const error = ref('');
-  const memberId = ref(route.query.m);
+  const memberId = ref(route.query.m || '');
   const memo = ref('');
   const amount = ref(0);
 
