@@ -1,5 +1,10 @@
 <script setup>
-  const props = defineProps(['memo', 'amount', 'date']);
+  const props = defineProps({
+    memo: String,
+    amount: Number,
+    date: String,
+    href: String
+  });
 
   /**
    * 
@@ -30,7 +35,10 @@
 
 <template>
   <div :class="['record', (props.amount > 0) ? 'add' : 'pay']">
-    <div class="memo">{{ props.memo }}</div>
+    <div class="memo">
+      <a v-show="props.href" :href="props.href">{{ props.memo }}</a>
+      <p v-show="!props.href">{{ props.memo }}</p>
+    </div>
     <div class="amount">{{ toUSD(props.amount) }}</div>
     <div class="date">{{ toDateString(props.date) }}</div>
   </div>
@@ -50,6 +58,9 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+  }
+  .record .memo a {
+    color: var(--color-dark);
   }
   .record .amount {
     font-size: 1.5em;
