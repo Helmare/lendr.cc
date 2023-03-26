@@ -21,18 +21,8 @@
 
   // Grab all borrowers
   const borrowers = ref([]);
-  lendr.get('/member/all', { requireAuth: true }).then(res => {
-    return res.json();
-  }).then(data => {
-    borrowers.value = data.members.filter(b => b.role == 'borrower').sort((a, b) => {
-      if (a.username < b.username) {
-        return -1;
-      }
-      if (a.username > b.username) {
-        return 1;
-      }
-      return 0;
-    });
+  lendr.getAllBorrowers().then(data => {
+    borrowers.value = data;
   });
 
   async function createLoan() {

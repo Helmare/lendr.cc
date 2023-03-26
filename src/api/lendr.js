@@ -57,6 +57,42 @@ class LendrClient {
     // Return result.
     return res;
   }
+
+  /**
+   * Gets all the members. This method requires authentication.
+   * 
+   * @returns {Promise<any[]|null>}
+   */
+  async getAllMembers() {
+    const res = await this.get('/member/all', { requireAuth: true });
+    if (res == null) {
+      return null;
+    }
+    else {
+      return (await res.json()).members;
+    }
+  }
+  /**
+   * Gets all the borrowers. This method requires authentication.
+   * @returns {Promise<any[]|null>}
+   */
+  async getAllBorrowers() {
+    let members = await this.getAllMembers();
+    if (members) {
+      members = members.filter(b => b.role == 'borrower').sort((a, b) => {
+        if (a.username < b.username) {
+          return -1;
+        }
+        if (a.username > b.username) {
+          return 1;
+        }
+        return 0;
+      });
+    }
+
+    return members;
+  }
+
   /**
    * Sends a POST request to the server.
    * 
