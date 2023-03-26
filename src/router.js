@@ -34,15 +34,21 @@ const router = createRouter({
       }
     },
     {
+      path: '/member/:id',
+      name: 'member',
+      component: () => import('./views/admin/MemberView.vue'),
+      meta: { adminOnly: true }
+    },
+    {
       path: '/admin/payment',
       name: 'payment',
       component: () => import('./views/admin/PaymentView.vue'),
       meta: { adminOnly: true }
     },
     {
-      path: '/member/:id',
-      name: 'payment',
-      component: () => import('./views/admin/MemberView.vue'),
+      path: '/loan/create',
+      name: 'create-loan',
+      component: () => import('./views/admin/CreateLoanView.vue'),
       meta: { adminOnly: true }
     }
   ]
@@ -63,7 +69,6 @@ router.beforeEach(async (to, from) => {
 
   // Block and redirect.
   if (me) {
-    console.log(to.meta, me);
     if (!(to.meta.memberOnly || to.meta.adminOnly) || (to.meta.adminOnly && me.role != 'admin')) {
       return { name: 'dashboard' }
     }

@@ -1,5 +1,6 @@
 <script setup>
   import { ref, inject } from 'vue';
+  import { useRoute } from 'vue-router';
   import LendrClient from '../../api/lendr';
   import BasicForm from '../../components/BasicForm.vue';
   import MoneyInput from '../../components/MoneyInput.vue';
@@ -8,11 +9,14 @@
   const loading = inject('loading');
 
   const lendr = new LendrClient();
+  const route = useRoute();
+  console.log(route.query.m);
 
   const disabled = ref(false);
   const success = ref(false);
   const error = ref('');
-  const memberId = ref('');
+  const memberId = ref(route.query.m);
+  const memo = ref('');
   const amount = ref(0);
 
   // Grab all borrowers
@@ -31,16 +35,18 @@
     });
   });
 
-  async function postPayment() {
+  async function createLoan() {
     // Reset
     success.value = false;
     error.value = '';
     disabled.value = true;
     loading.value = true;
-    
-    // Post payment
-    const res = await lendr.post(`/member/${memberId.value}/payment`, {
-      amount: -amount.value
+
+    const res = await lendr.post('/loan/create', {
+      memo: memo.value,
+      borrowers: [memberId.value],
+      interest: 0.09,
+      principal: amount.value
     }, { requireAuth: true });
 
     // Show message
@@ -48,7 +54,8 @@
       success.value = true;
     }
     else {
-      error.value = `Failed to post payment... (${res.status})`;
+      const body = await res.json();
+      error.value = `Failed to create loan... (${res.status}: ${body.err})`;
     }
 
     // Stop loading.
@@ -58,13 +65,15 @@
 </script>
 
 <template>
-  <BasicForm action="Post" :disabled="loading" @submit.prevent="postPayment">
-    <span v-show="success" style="color: var(--color-primary)">Successfully posted payment!</span>
+  <BasicForm action="Create" :disabled="loading" @submit.prevent="createLoan">
+    <span v-show="success" style="color: var(--color-primary)">Successfully created loan!</span>
     <span v-show="error" style="color: red">{{ error }}</span>
     <label>Borrower</label>
     <select v-model="memberId">
       <option v-for="b in borrowers" :value="b._id">{{ b.username }}</option>
     </select>
+    <label>Memo</label>
+    <input type="text" v-model="memo" placeholder="Personal Loan" />
     <label>Amount</label>
     <MoneyInput v-model:amount="amount" />
   </BasicForm>
