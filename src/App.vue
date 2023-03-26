@@ -25,7 +25,7 @@
 
 <template>
   <nav>
-    <span class="logo">lendr.cc</span>
+    <a class="logo" href="/">lendr.cc</a>
     <button class="right" v-show="store.me" @click="logout">Logout</button>
   </nav>
   <div v-show="loading" class="loading"></div>
@@ -48,7 +48,7 @@
     color: var(--color-light);
     text-decoration: none;
   }
-  nav a:hover {
+  nav a:not(.logo):hover {
     background-color: var(--color-dark-soft);
   }
 

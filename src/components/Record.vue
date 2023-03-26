@@ -25,11 +25,17 @@
    * @param {Date} value 
    */
   function toDateString(value) {
-    return new Date(value).toLocaleDateString('en-US', {
-      month: 'short',
-      day: '2-digit',
-      year: 'numeric'
-    });
+    const date = new Date(value);
+    if (date instanceof Date && !isNaN(date.valueOf())) {
+      return date.toLocaleDateString('en-US', {
+        month: 'short',
+        day: '2-digit',
+        year: 'numeric'
+      });
+    }
+    else {
+      return value;
+    }
   }
 </script>
 
