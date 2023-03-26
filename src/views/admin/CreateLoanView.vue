@@ -60,7 +60,7 @@
     <span v-show="error" style="color: red">{{ error }}</span>
     <label>Borrower</label>
     <select v-model="memberId">
-      <option v-for="b in borrowers" :value="b._id">{{ b.username }}</option>
+      <option v-for="b in borrowers" :value="b._id">{{ b.username.charAt(0).toUpperCase() + b.username.slice(1) }}</option>
     </select>
     <label>Memo</label>
     <input type="text" v-model="memo" placeholder="Personal Loan" />
