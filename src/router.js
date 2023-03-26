@@ -36,7 +36,13 @@ const router = createRouter({
     {
       path: '/admin/payment',
       name: 'payment',
-      component: () => import('./views/PaymentView.vue'),
+      component: () => import('./views/admin/PaymentView.vue'),
+      meta: { adminOnly: true }
+    },
+    {
+      path: '/member/:id',
+      name: 'payment',
+      component: () => import('./views/admin/MemberView.vue'),
       meta: { adminOnly: true }
     }
   ]

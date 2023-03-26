@@ -1,9 +1,9 @@
 <script setup>
   import { ref, inject } from 'vue';
   import { useRouter } from 'vue-router';
-  import LendrClient from '../api/lendr';
-  import BasicForm from '../components/BasicForm.vue';
-  import MoneyInput from '../components/MoneyInput.vue';
+  import LendrClient from '../../api/lendr';
+  import BasicForm from '../../components/BasicForm.vue';
+  import MoneyInput from '../../components/MoneyInput.vue';
 
   /** @type {import('vue').Ref<boolean>} */
   const loading = inject('loading');
