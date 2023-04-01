@@ -1,6 +1,6 @@
 <script setup>
   import { ref, inject } from 'vue';
-  import { useRoute } from 'vue-router';
+  import { useRoute, useRouter } from 'vue-router';
   import LendrClient from '../../api/lendr';
   import BasicForm from '../../components/BasicForm.vue';
   import MoneyInput from '../../components/MoneyInput.vue';
@@ -9,6 +9,7 @@
   const loading = inject('loading');
 
   const lendr = new LendrClient();
+  const router = useRouter();
   const route = useRoute();
 
   const disabled = ref(false);
@@ -38,6 +39,12 @@
     // Show message
     if (res.status == 200) {
       success.value = true;
+      router.push({
+        name: 'member',
+        params: {
+          id: memberId.value
+        }
+      });
     }
     else {
       error.value = `Failed to post payment... (${res.status})`;
