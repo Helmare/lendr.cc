@@ -13,8 +13,9 @@ class LendrClient {
   constructor(endpoint) {
     /** @type {string} */
     this.loginId = localStorage.getItem('loginId');
+
     /** @type {string} */
-    this.endpoint = endpoint || 'https://api.lendr.cc/v1';
+    this.endpoint = endpoint || import.meta.env.VITE_API_ENDPOINT || 'https://api.lendr.cc/v1';
   }
 
   /**
