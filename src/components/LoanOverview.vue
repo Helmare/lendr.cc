@@ -19,7 +19,9 @@
   const nextMonthName = months[nextMonthIndex];
 
   function toUSD(value, includeChange) {
-    const opts = {};
+    const opts = {
+      maximumFractionDigits: 0
+    };
     if (includeChange) {
       opts.minimumFractionDigits = 2;
       opts.maximumFractionDigits = 2;
